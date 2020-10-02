@@ -1,0 +1,26 @@
+WHAT HAVE WE LEARNED?
+
+L_R
+
+>As expected, l_r trades against treedepth.
+>Attempting to model an interaction-free setup with interactions is actively harmful(!) when there's any random element.
+>(The above makes proof much harder if error is a component. Has to either be provable sans error or outcompete the damage.)
+
+JAG
+
+>Jag effect exists! As does its mitigation by high treedepth!
+>. . . but somehow the effect doesn't seem to have repercussions on key stats? Possible explanation: random noise is needed for effect to be relevant, but also mitigates effect significantly.
+>Sprinkling segpoints onto a variable you'll be tree-modelling is harmless unless you happen to get one close to the turning point(s), in which case it's merely useless; you'd need to place so many that just high treedepth is faster.
+>It's hard to find the right way to vary Learn so we can compare the best of treedepth=1 to the best of treedepth=2. Best solution is probably to set l_r insanely low and then vary n_trees across a wide range.
+
+LINKS
+
+This is so trivial I don't need to do any of it.
+
+MIXES
+
+
+
+OUTLIERS
+
+

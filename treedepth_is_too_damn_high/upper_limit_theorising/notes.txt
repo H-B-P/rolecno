@@ -1,0 +1,8 @@
+.Multiple comparisons mean surprisingly little if the signal is strong and the dist is Gaussian. (and if you add together enough things, the dist is always Gaussian)
+.4x of Gelman's 16x is from half the signal in a two-way being handled by a one-way; and a further 2x is from two-ways (in a binary setup) having less signal than one-ways.
+.So there is no Theory to be had here, I just need more Practice.
+
+.stdev is big! No wonder pode was always tiny. Ergo, dist around model mostly visible before model built.
+
+.If I sim'd a dataset and had a program assign a value to every single 5-way interaction (and every 4-way, and etc etc etc) that would be cool but fucked up.
+.When I go around analysing individual dsets I should see not just what the optimal treedepth is, but what the optimal treedepth would be with only k times the data for varying values of k (and how that changes with Drift, and how that changes with any other moderating factor).

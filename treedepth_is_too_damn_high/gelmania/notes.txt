@@ -1,0 +1,29 @@
+Premise:
+
+There is one d-way interaction between (de facto or de jure) binary vars (note that red vs not-red is binary).
+
+The interaction moves up E units. Nothing else happens.
+
+F1, F2, F3 etc are the relevant factors; all uncorrelated. The interaction is f1 of F1, f2 of F2, f3 of F3, etc.
+
+There are infinite datapoints, drift is a non-factor.
+
+c0 is the base pred. c1, c2, c3 etc are the coeffs of the linear model.
+
+We are optimising for Gaussian error dist, but we care about MAE too.
+
+Working/logic:
+
+.We always get the mean right; work back from that and it's easy (i.e. c1 = E*f2 for 2-way).
+.To find c0, note that we always get the overall mean right too (i.e. E*f1*f2 = c0 + c1*f1 + c2*f2).
+.Using the above two facts makes it easy.
+.Two-way reduces cleanly; the rest not so much.
+
+
+For two-way:
+Handling a two-way interaction with one-way modelling reduces MSE to (1-f1)(1-f2) of starting value, and changes MAE to 4(1-f1)(1-f2) starting value (yeah, it can go up!).
+(note that starting value is not 0D modelling as it probably should be)
+
+Higher dimensions:
+Eval-ing change from modelling-4D-with-2D to modelling-4D-with-3D gets intractable quick. Solve with Solver; note pretty patterns.
+

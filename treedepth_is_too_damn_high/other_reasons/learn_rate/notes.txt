@@ -1,0 +1,4 @@
+gen gens.
+model imports gen, models, produces MAE and RMSE.
+gridsearch imports gen and model, gens, models repeatedly, finds hyperparams with best MAE.
+repeat repeats gridsearch, records how many end up with what optimal treedepth.
