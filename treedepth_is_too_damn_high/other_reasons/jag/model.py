@@ -11,6 +11,8 @@ import gen
 def model(trainDf, testDf, params={'max_depth':1}, rounds=10, roundsAtATime=1, modelDefRes=0.01, show=False):
  params["base_score"] = sum(trainDf["y"])/len(trainDf["y"])
  
+ explanatories = ["x"]+[c for c in trainDf.columns if c[0]=='d']
+ 
  dtrain = xgb.DMatrix(trainDf[["x"]], label=trainDf["y"])
  dtest = xgb.DMatrix(testDf[["x"]], label=testDf["y"])
  
@@ -21,8 +23,6 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10, roundsAtATime=1, m
  bst = xgb.train(params, dtrain, min(roundsAtATime, rounds))
  roundsToGo=rounds-roundsAtATime
  while roundsToGo>0:
-  bst = xgb.train(params, dtrain, min(roundsAtATime, roundsToGo), xgb_model=bst)
-  defPreds = bst.predict(ddef)
   if show:
    fig = go.Figure()
    fig.add_trace(go.Scatter(x=trainDf["x"], y=trainDf["y"],
@@ -32,6 +32,8 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10, roundsAtATime=1, m
                      mode='lines',
                      name='model'))
    fig.show()
+  bst = xgb.train(params, dtrain, min(roundsAtATime, roundsToGo), xgb_model=bst)
+  defPreds = bst.predict(ddef)
   roundsToGo=roundsToGo-roundsAtATime
   
  
@@ -45,6 +47,8 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10, roundsAtATime=1, m
  return MAE,RMSE
 
 if __name__ == '__main__':
- df1=gen.generate(2,20,2)
- df2=gen.generate(2,20,2)
- print(model(df1,df2,{'max_depth':1,'learning_rate':0.3}, rounds=50, roundsAtATime=10, show=True))
+ df1=gen.generate(2,3,4)
+ df2=gen.generate(2,3,4)
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3}, rounds=50, roundsAtATime=50, show=False))
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3}, rounds=100, roundsAtATime=50, show=False))
+ print(model(df1,df2,{'max_depth':2,'learning_rate':0.3}, rounds=50, roundsAtATime=50, show=False))

@@ -1,0 +1,9 @@
+Whalebusting is a bust . . . as a real tech. As an explanation for why people might fool themselves into doing a thing, it's gold.
+
+More trees than needed ALWAYS makes RMSE worse. Makes MAE better, but not consistently, because sometimes something with all those categories is in the test set.
+
+Perpetual motion machinery; increased risk of blowup; no reliable proof possible because hypothesis wrong.
+
+We *should* be able to get a free lunch by being uberspecific, but the xgb algo won't split when it doesn't need to.
+
+There's a hump as we increase treedepth to comp for outliers: MAE goes up before it goes down. A reason why TD7 might beat TD3, but not a reason why TD2 might beat TD1.

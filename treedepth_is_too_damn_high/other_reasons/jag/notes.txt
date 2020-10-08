@@ -1,0 +1,3 @@
+Jag is several dead hypotheses.
+
+Somehow, I can't make it matter that higher TD learns nonlinear trends faster. Even though model.py proves it! Something about the noise.
