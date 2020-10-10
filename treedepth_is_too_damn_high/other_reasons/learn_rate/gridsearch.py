@@ -7,13 +7,13 @@ import xgboost as xgb
 import gen
 import model
 
-treeDepths=[1,2,3,4,5]
-learnRates=[0.1, 0.2, 0.5, 1]
-nRoundList=[10, 20, 50, 100, 200, 500, 1000]
+treeDepths=[1,2,3]
+learnRates=[0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+nRoundList=[100]
 
 #random.seed(0)
-train=gen.generate(1,10,1000, 2)
-test=gen.generate(1,10,1000, 2)
+train=gen.generate(1,10,1000)
+test=gen.generate(1,10,1000)
 
 for treeDepth in treeDepths:
  print("TREEDEPTH: "+str(treeDepth))

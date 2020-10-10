@@ -29,13 +29,13 @@ if __name__ == '__main__':
  df2=gen.generate(1,10,1000)
  
  print("TD1")
- mae, rmse = model_and_get_stats(df1,df2, {'max_depth':1, 'n_rounds':4})
+ mae, rmse = model_and_get_stats(df1,df2, {'max_depth':1, 'n_rounds':100, "learning_rate":0.01})
  print(mae, rmse)
  
  print("TD2")
- mae, rmse = model_and_get_stats(df1,df2, {'max_depth':2, 'n_rounds':4})
+ mae, rmse = model_and_get_stats(df1,df2, {'max_depth':2, 'n_rounds':100, "learning_rate":0.01})
  print(mae, rmse)
  
  print("TD3")
- mae, rmse = model_and_get_stats(df1,df2, {'max_depth':3, 'n_rounds':4})
+ mae, rmse = model_and_get_stats(df1,df2, {'max_depth':3, 'n_rounds':100, "learning_rate":0.01})
  print(mae, rmse)
