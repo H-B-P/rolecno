@@ -61,7 +61,7 @@ def canonically_model(trainDf, testDf, rounds=1000, resps=2, learningRate=0.1):
  MAE=sum(abs(errs))/len(errs)
  RMSE=np.sqrt(sum(errs*errs)/len(errs))
  
- #explain(theModel, explanatories)
+ explain(theModel, explanatories)
  
  return MAE,RMSE
 

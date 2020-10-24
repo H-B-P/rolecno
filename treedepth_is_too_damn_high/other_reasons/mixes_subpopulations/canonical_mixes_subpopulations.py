@@ -32,11 +32,11 @@ def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRa
  
  logAve = np.log(sum(trainDf["y"])/len(trainDf["y"]))
  
- modelAlpha=0
+ modelAlpha=1
  
  modelF=1/(1+np.exp(-modelAlpha))
- modelA={"constant":logAve+0.1}
- modelB={"constant":logAve-0.1}
+ modelA={"constant":logAve}
+ modelB={"constant":logAve}
  
  
  
@@ -46,8 +46,8 @@ def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRa
  
  for i in range(rounds):
   predsA, predsB, overallPred = predict(trainDf, modelA, modelB, modelF)
-  gradNumeratorA = modelF*trainDf["y"]*np.power(predsA, trainDf["y"]-1)*np.exp(-predsA)*(trainDf["y"]-predsA)
-  gradNumeratorB = (1-modelF)*trainDf["y"]*np.power(predsB, trainDf["y"]-1)*np.exp(-predsB)*(trainDf["y"]-predsB)
+  gradNumeratorA = modelF*np.power(predsA, trainDf["y"]-1)*np.exp(-predsA)*(trainDf["y"]-predsA)
+  gradNumeratorB = (1-modelF)*np.power(predsB, trainDf["y"]-1)*np.exp(-predsB)*(trainDf["y"]-predsB)
   gradNumeratorF = np.power(predsA, trainDf["y"])*np.exp(-predsA) - np.power(predsB, trainDf["y"])*np.exp(-predsB)
   gradDenominator = modelF*np.power(predsA, trainDf["y"])*np.exp(-predsA) + (1-modelF)*np.power(predsB, trainDf["y"])*np.exp(-predsB)
   
@@ -65,9 +65,11 @@ def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRa
  predsA, predsB, preds = predict(testDf, modelA, modelB, modelF)
  
  explain(modelA,explanatories)
+ print("")
  explain(modelB,explanatories)
+ print("")
  print("F: "+ str(modelF))
- 
+ print("")
  acts = np.array(testDf["y"])
  errs = preds-acts
  
@@ -77,6 +79,10 @@ def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRa
  return MAE,RMSE
 
 if __name__ == '__main__':
- df1=gen.generateIII(100, 1000, False)
- df2=gen.generateIII(100, 1000, False)
- print(canonically_model(df1,df2, 500, 0.001, 0.01))
+ df1=gen.generateII(1, 10000, False)
+ df2=gen.generateII(1, 10000, False)
+ print(canonically_model(df1,df2, 10, 0.2, 0.1))
+ print(canonically_model(df1,df2, 100, 0.2, 0.1))
+ print(canonically_model(df1,df2, 1000, 0.2, 0.1))
+ print(canonically_model(df1,df2, 2000, 0.2, 0.1))
+ print(canonically_model(df1,df2, 3000, 0.2, 0.1))

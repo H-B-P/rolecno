@@ -28,8 +28,8 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10):
  return MAE,RMSE
 
 if __name__ == '__main__':
- df1=gen.generateII(100, 3000, False)
- df2=gen.generateII(100, 3000, False)
+ df1=gen.generateII(1, 10000, False)
+ df2=gen.generateII(1, 10000, False)
  print("Mislinked TD1")
  print(model(df1,df2,{'max_depth':1,'learning_rate':0.3}, rounds=100))
  print("TD1")

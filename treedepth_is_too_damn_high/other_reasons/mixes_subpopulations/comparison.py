@@ -32,9 +32,9 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10):
  return MAE,RMSE
 
 if __name__ == '__main__':
- df1=gen.generateIII(1, 1000, False)
- df2=gen.generateIII(1, 1000, False)
+ df1=gen.generate(1, 100000, False)
+ df2=gen.generate(1, 100000, False)
  print("TD1")
  print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=100))
  print("canon test 1")
- print(canonical_mixes_subpopulations.canonically_model(df1,df2, 500, 0.01, 0))
+ print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.2, 0.2))
