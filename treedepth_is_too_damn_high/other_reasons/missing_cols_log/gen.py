@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import random
 
-def generate(N=1000, present=3, absent=3, probList=[], defaultProb=0.9):
+def generate(N=1000, present=3, absent=3, probList=[], defaultProb=0.9, loglinked=True):
     
     dictForDf = {}
     
@@ -29,7 +29,10 @@ def generate(N=1000, present=3, absent=3, probList=[], defaultProb=0.9):
 
     xColumns=["x"+str(i) for i in range(present+absent)]
     
-    df["y"]=np.random.poisson(np.power(2,df[xColumns].sum(axis=1)))
+    if loglinked:
+     df["y"]=np.random.poisson(np.power(2,df[xColumns].sum(axis=1)))
+    else:
+     df["y"]=np.random.poisson(df[xColumns].sum(axis=1))
     
     presentXColumns = ["x"+str(i) for i in range(present)]
     
@@ -38,5 +41,7 @@ def generate(N=1000, present=3, absent=3, probList=[], defaultProb=0.9):
     return df
 
 if __name__ == '__main__':
- theDf=generate(1000, 3,3,[])
+ theDf=generate(1000, 3,3,[], 0.9, True)
+ print(theDf)
+ theDf=generate(1000, 3,3,[], 0.9, False)
  print(theDf)
