@@ -6,11 +6,9 @@ import xgboost as xgb
 
 import plotly.graph_objects as go
 
-import canonical_mixes_risks
 import canonical_mixes_subpopulations
 
-
-import gen
+import gen_efficient_unbalanced as gen
 
 def model(trainDf, testDf, params={'max_depth':1}, rounds=10):
  params["base_score"] = sum(trainDf["y"])/len(trainDf["y"])
@@ -32,9 +30,21 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10):
  return MAE,RMSE
 
 if __name__ == '__main__':
- df1=gen.generate(1, 100000, False)
- df2=gen.generate(1, 100000, False)
+ df1=gen.generateIII(1, 100000, False)
+ df2=gen.generateIII(1, 100000, False)
  print("TD1")
- print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=100))
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))
+ print("TD1 x2")
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=2000))
+ print("TD3")
+ print(model(df1,df2,{'max_depth':3,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))
+ print("canon test 0")
+ print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.1, 0, 0.05))
  print("canon test 1")
- print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.2, 0.2))
+ print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.1, 0, 0.15))
+ print("canon test 2")
+ print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.1, 0, 0.25))
+ print("canon test 3")
+ print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.1, 0, 0.35))
+ print("canon test 4")
+ print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.1, 0, 0.45))

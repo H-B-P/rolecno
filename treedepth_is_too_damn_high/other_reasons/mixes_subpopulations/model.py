@@ -6,7 +6,7 @@ import xgboost as xgb
 
 import plotly.graph_objects as go
 
-import gen
+import gen_efficient_unbalanced as gen
 
 def model(trainDf, testDf, params={'max_depth':1}, rounds=10):
  params["base_score"] = sum(trainDf["y"])/len(trainDf["y"])
@@ -28,15 +28,15 @@ def model(trainDf, testDf, params={'max_depth':1}, rounds=10):
  return MAE,RMSE
 
 if __name__ == '__main__':
- df1=gen.generateII(1, 10000, False)
- df2=gen.generateII(1, 10000, False)
+ df1=gen.generateII(1, 100000, False)
+ df2=gen.generateII(1, 100000, False)
  print("Mislinked TD1")
- print(model(df1,df2,{'max_depth':1,'learning_rate':0.3}, rounds=100))
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3}, rounds=1000))
  print("TD1")
- print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=100))
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))
  print("TD1 (but 2x rounds)")
- print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=200))
+ print(model(df1,df2,{'max_depth':1,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=2000))
  print("TD2")
- print(model(df1,df2,{'max_depth':2,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=100))
+ print(model(df1,df2,{'max_depth':2,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))
  print("TD3")
- print(model(df1,df2,{'max_depth':3,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=100))
+ print(model(df1,df2,{'max_depth':3,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))

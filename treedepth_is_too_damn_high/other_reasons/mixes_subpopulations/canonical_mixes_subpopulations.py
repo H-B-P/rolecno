@@ -6,7 +6,7 @@ import xgboost as xgb
 
 import plotly.graph_objects as go
 
-import gen
+import gen_efficient as gen
 
 def predict(df, modelA, modelB, modelF):
  subPreds = []
@@ -26,15 +26,21 @@ def explain(mod, explanatories):
  for expl in explanatories:
   print(expl+": "+str(mod[expl]))
 
-def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRateF=0.1):
+def logit(f):
+ return -np.log(1/float(f)-1)
+
+def ilogit(a):
+ return 1/(1+np.exp(-a))
+
+def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRateF=0.1, startingF=0.5):
  
  explanatories = [c for c in trainDf.columns if c[0]=='x']
  
  logAve = np.log(sum(trainDf["y"])/len(trainDf["y"]))
  
- modelAlpha=1
+ modelAlpha=logit(startingF)
  
- modelF=1/(1+np.exp(-modelAlpha))
+ modelF=startingF
  modelA={"constant":logAve}
  modelB={"constant":logAve}
  
@@ -60,7 +66,7 @@ def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRa
    modelB[expl]+=sum(gradNumeratorB/gradDenominator*predsB*trainDf[expl])*learningRate/len(trainDf)
   
   modelAlpha += sum(gradNumeratorF/gradDenominator*dFbydAlpha)*learningRateF/len(trainDf)
-  modelF=1/(1+np.exp(-modelAlpha))
+  modelF=ilogit(modelAlpha)
  
  predsA, predsB, preds = predict(testDf, modelA, modelB, modelF)
  
@@ -79,6 +85,10 @@ def canonically_model(trainDf, testDf, rounds=1000, learningRate=0.1, learningRa
  return MAE,RMSE
 
 if __name__ == '__main__':
+ 
+ print(ilogit(logit(0.25)))
+ print(ilogit(logit(0.75)))
+ 
  df1=gen.generateII(1, 10000, False)
  df2=gen.generateII(1, 10000, False)
  print(canonically_model(df1,df2, 10, 0.2, 0.1))

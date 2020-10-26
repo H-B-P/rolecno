@@ -6,7 +6,6 @@ import xgboost as xgb
 
 import plotly.graph_objects as go
 
-import canonical_mixes_risks
 import canonical_mixes_subpopulations
 
 
@@ -46,11 +45,7 @@ if __name__ == '__main__':
  print(model(df1,df2,{'max_depth':3,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))
  print("TD4")
  print(model(df1,df2,{'max_depth':4,'learning_rate':0.3, 'objective':'count:poisson'}, rounds=1000))
- #print("altcanon 1")
- #print(canonical_mixes_risks.canonically_model(df1,df2, 1000, 1, 0.005))
- #print("altcanon 2")
- #print(canonical_mixes_risks.canonically_model(df1,df2, 1000, 2, 0.005))
- print("truecanon 1")
+ print("canon 1")
  print(canonical_mixes_subpopulations.canonically_model(df1,df2, 1000, 0.1, 0))
- print("truecanon 2")
+ print("canon 2")
  print(canonical_mixes_subpopulations.canonically_model(df1,df2, 2000, 0.1, 0))
