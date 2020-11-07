@@ -1,0 +1,25 @@
+You worry that:
+
+.It only works for XGB.
+
+You should also worry that:
+
+.It only appears to work for XGB because I picked the wrong hyperparameters.
+
+Let me put these worries to rest!
+
+.When you leave an XGB model to train arbitrarily long, where the explanatories are a series of binary variables, you get the same result as an unpen linear model with the same treedepth. (proof: primes)
+.All relevant XGB models may as well have been left to train arbitrarily long. (proof)
+.Therefore, this isn't just an XGB thing!
+
+
+
+ALSO, MATH.
+
+Assume mo DOF mo problems.
+
+When there are N parallel models and D DOF in feats, N*(D+1) DOF in model.
+
+When there only trees, 2^D DOF in model.
+
+
